@@ -55,7 +55,7 @@ hva som bør gjøres helt konkret. Noen slike ideer nevnes nedenfor.
 
 import os
 from math import hypot, atan2, pi
-from tools import ls
+
 # import numpy as np
 
 # (north, east) in UTM 32V, hele Hafrsfjord er innenfor 10 km x 10 km rute med offset SW (nede til venstre)
@@ -739,41 +739,3 @@ def writeTo10x10(t):
 	return
 
 # laget av Karl mars 2018
-def test01():
-	# Filen 16.asc er liten og grei å teste med
-	singleFile10x10('16.asc')
-	
-	# mitt forslag
-	t = readAscToList('16.asc')
-	writeTo10x10(t)
-	return t
-
-# laget av Karl juni 2018 
-def test02(cat='', fn='*.asc'):
-	""" leser ei fil fra katalog, eventulet lister filer
-	ex: fl = hafrs.test02('pc')
-	    pLlist = hafrs.lesAscFil(fl[1], d1=0.6)  # leser ei stor fil, ca 95 [s]
-	    for i in range(10): print( pLlist[i].infoLinje('pLlist[%4i]: ' % i) )
-	    pLlen = []
-	    for i in range(len(pLlist)): pLlen.append( len(pLlist[i]) )
-	    pLdist = []
-	    for i in range(1,len(pLlist)): pLdist.append( pLlist[i][0] - pLlist[i-1][-1] )
-	"""
-	if cat == 'ux':
-		cat = uxDataKatalog
-	if cat == 'pc':
-		cat = pcDataKatalog
-	if (len(cat) > 0) and (not cat[-1] == os.path.sep):
-		cat = cat + os.path.sep
-	fl = ls(cat + fn)
-	if len(fl) == 0:
-		print('Ingen filer ble lest fra "%s"' % (cat+fn))
-	else:
-		for f in fl:
-			print(f)
-	return fl
-
-
-if __name__ == '__main__':
-	test02()
-	
