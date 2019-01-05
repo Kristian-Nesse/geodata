@@ -18,7 +18,7 @@ ez=[]
 
 
 for i in range(x.__len__()):
-    if i % 4== 0 :
+    if i % 3== 0 :
         ex.append(x[i])
         ey.append(y[i])
         ez.append(z[i])
