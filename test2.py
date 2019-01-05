@@ -8,7 +8,7 @@ from matplotlib import cm
 from mpl_toolkits import mplot3d
 
 
-fil16=pd.read_fwf('middels.txt',header=None)
+fil16=pd.read_fwf('storre.txt',header=None)
 
 #Datatype float 64 om til numpy array
 x=np.array(fil16[0])
