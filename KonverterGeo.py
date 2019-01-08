@@ -40,11 +40,8 @@ def konvertereFraUTM(filename):
 
 #MERK syntax for å kunn aksessere den første returnerte verdien fra metoden 
 
-J=konvertereFraUTM('16.asc')[0]
-print(J)
-
-with open('test.json', 'w') as outfile:
-        json.dump(J, outfile,indent=2)
+#J=konvertereFraUTM('16.asc')[0]
+#rint(J)
 
 
 

@@ -2,9 +2,13 @@ import scipy as sp
 import scipy.interpolate
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt,mpld3
 from mpl_toolkits import mplot3d
 from matplotlib import cm
+import seaborn as sb
+
+
+
 
 fil16=pd.read_fwf('16.asc',header=None)
 
@@ -18,7 +22,7 @@ ez=[]
 
 
 for i in range(x.__len__()):
-    if i % 3== 0 :
+    if i % 4== 0 :
         ex.append(x[i])
         ey.append(y[i])
         ez.append(z[i])
@@ -41,7 +45,7 @@ X, Y = np.meshgrid(xi, yi)
 
 Z = spline(X,Y)
 
-
+Z.tolist()
 
 print(Z)
 
@@ -54,18 +58,20 @@ fig = plt.figure()
 #ax = plt.axes(projection='3d')
 #ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=cm.jet,linewidth=1, antialiased=False)
 
-plt.contour(X, Y, Z, 50, linewidths = 0, colors = 'k',antialiased=False)
-plt.pcolormesh(X, Y, Z, cmap = plt.get_cmap('rainbow'))
+#plt.contour(X, Y, Z, 50, linewidths = 0, colors = 'k',antialiased=False)
+#plt.pcolormesh(X, Y, Z, cmap = plt.get_cmap('rainbow'))
 
-plt.colorbar() 
+#plt.colorbar() 
 #plt.scatter(x, y, marker = 'o', c = 'b', s = 10, zorder = 10)
-plt.xlim(xmin, xmax)
-plt.ylim(ymin, ymax)
+#plt.xlim(xmin, xmax)
+#plt.ylim(ymin, ymax)
+
+
+ay=sb.heatmap(Z)
 
 
 
 
 
-
-plt.show()
+mpld3.show()
 
