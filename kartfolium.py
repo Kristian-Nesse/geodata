@@ -108,7 +108,7 @@ folium.Marker([58.9278263, 5.657249],
 #folium.GeoJson('firkant.json', name='Harfsfjord').add_to(m)
 folium.GeoJson('myfile.json', name='haloen').add_to(m)
 
-J=konvertereFraUTM('16.asc')[1]
+J=konvertereFraUTM('txtfiler/16.asc')[1]
 
 print(J)
 
