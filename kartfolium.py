@@ -212,6 +212,17 @@ folium.plugins.MeasureControl().add_to(m)
 #folium.GeoJson('firkant.json', name='Harfsfjord').add_to(m)
 folium.GeoJson('myfile.json').add_to(feature_group)
 
+<<<<<<< HEAD
+=======
+J=konvertereFraUTM('txtfiler/16.asc')[1]
+
+print(J)
+
+folium.plugins.HeatMap(J,'test',max_zoom=22).add_to(m)
+
+folium.plugins.MousePosition().add_to(m)
+folium.plugins.MeasureControl().add_to(m)
+>>>>>>> Server-setup
 
 
 
