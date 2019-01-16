@@ -17,41 +17,78 @@
         </div>
     </div>
 
-    <div id="myDiv"></div>
+    <div id="myDiv" ondblclick="Contour(100,0)"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3-contour.v1.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+   
+    <button type="button" id="3d-knapp" onclick="plot3d()">3D!</button>
+    <button type="button" id="contour-knapp" onclick="tilbake_til_contour()" disabled>Contour!</button>
+    <div class="footer">
+        <p>Footer</p>
+    </div>
     <script>
         var xstart;
         var xslutt;
+        var zoomet;
         var myplot = document.getElementById('myDiv')
         //definerer variabler
-        Contour_start(100)
-        //første gang plotet blir lastet
-        function Contour_start(zoom) {
-            //Denne funksjonen kjører når siden blir lastet eller når du zoomer ut
-            var vars = "&zoom=" + zoom
-            //Definerer variablene som skal sendes til serveren
+        Contour(100,0)
+        //første gang plotet blir lastet   
+        function Contour(zoom, eventdata) {
+      
+            if (zoom == 100) {
+                xstart = 6534927.09;
+                xslutt = 6534882.22;
+                zoomet=zoom
+                //Denne funksjonen kjører når siden blir lastet eller når du zoomer ut
+                var vars = "&zoom=" + zoom
+                //Definerer variablene som skal sendes til serveren
 
-            var request = new XMLHttpRequest();
-            request.onreadystatechange = function () {
-                if (request.readyState == 4) {
-                    res = request.response;
-                    act_on_resp(res, zoom);
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4) {
+                        res = request.response;
+                        act_on_resp(res, zoom-25)
+                    }
                 }
+                request.open('POST', 'http://127.0.0.1:5000/firstzoom');
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(vars);
             }
+            else {
+                xstart = eventdata['xaxis.range[0]']
+                xslutt = eventdata['xaxis.range[1]']
+                var vars = "xcoord=" + xstart + "&xcoord1=" + xslutt + "&zoom=" + zoom
+                zoomet=zoom
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4) {
 
+                        res = request.response;
+                        resp = JSON.parse(res);
+                        if (resp === undefined || resp.length == 0) {
+                            console.log("")
+                        }
+                        else {
+                            act_on_resp(res, zoom-25);
+                        }
+                    }
+                }
+                request.open('POST', 'http://127.0.0.1:5000/zoom');
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(vars);
 
-            request.open('POST', 'http://127.0.0.1:5000/firstzoom');
-            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            request.send(vars);
+            }
         }
-
-
-        function test(zoom, eventdata) {
-            xstart = eventdata['xaxis.range[0]']
-            xslutt = eventdata['xaxis.range[1]']
-            var vars = "xcoord=" + eventdata['xaxis.range[0]'] + "&xcoord1=" + eventdata['xaxis.range[1]'] + "&zoom=" + zoom
+        function tilbake_til_contour() {
+            document.getElementById("contour-knapp").disabled = true;
+            document.getElementById("3d-knapp").disabled = false;
+            var vars = "xcoord=" + xstart + "&xcoord1=" + xslutt + "&zoom=" + zoomet
+      
+            console.log(zoomet);
+            console.log(xstart);
+            console.log(xslutt);
 
             var request = new XMLHttpRequest();
             request.onreadystatechange = function () {
@@ -63,68 +100,63 @@
                         console.log("")
                     }
                     else {
-                        act_on_resp(res, zoom);
+                        act_on_resp(res, zoomet);
                     }
-
-
                 }
             }
-
-
             request.open('POST', 'http://127.0.0.1:5000/zoom');
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(vars);
+
         }
+        
 
         function act_on_resp(resp, zoom) {
             coords = JSON.parse(res);
             console.log(coords)
             console.log(coords["x"])
-
-
             var data = [{
                 z: coords["z"],
                 x: coords["x"],
                 y: coords["y"],
                 type: 'contour'
             }];
-
-
             var layout = {
                 title: 'Basic Contour Plot'
             }
             console.log(data)
-            Plotly.newPlot('myDiv', data, layout);
-            myDiv.on('plotly_doubleclick', function () {
-                firsttest(100);
+            console.log(zoomet);
+            console.log(xstart);
+            console.log(xslutt);
 
-            });
+          
+            
+            Plotly.newPlot('myDiv', data, layout);
+           myDiv.on('plotly_doubleclick', function () {
+                    zoom = 100
+                    console.log(zoomet)      
+            });   
             myDiv.on('plotly_relayout',
                 function (eventdata) {
-                    if (zoom <= 50) {
-                        document.getElementById("3d-knapp").disabled = false;
-
+                    if (zoom == 100) {
+                        Contour(100, 0)
+                        return;
                     }
-                    if (zoom - 25 == 0) {
-                        test(1, eventdata)
-                        return null;
+                    if (zoomet - 25 == 0) {
+                        Contour(1, eventdata)
+                        zoomet = 1;
+                        return;
                     }
-                    else if (zoom == 1) {
+                    if (zoomet == 1) {
                         console.log("Tester123")
-                        return null;
+                        return;
                     }
-
-
-
-                    test(zoom - 25, eventdata)
-
+                    Contour(zoom, eventdata)
                 });
-
-
-
         }
-
         function plot3d() {
+            document.getElementById("contour-knapp").disabled = false;
+            document.getElementById("3d-knapp").disabled = true;
 
             var vars1 = "xcoord=" + xstart + "&xcoord1=" + xslutt + "&zoom=" + 10
 
@@ -138,14 +170,14 @@
 
                 }
             }
-            request.open('POST', 'http://127.0.0.1:5000/tred');
+            request.open('POST', 'http://127.0.0.1:5000/treD');
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(vars1);
-            
+
         }
 
         function plot(res) {
-            var coords=[]
+            var coords = []
             coords = JSON.parse(res);
 
             Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv', function (err, rows) {
@@ -193,11 +225,5 @@
             });
         }
     </script>
-    <H1>Hi</H1>
-    <P>This is very minimal "hello world" HTML document.</P>
-    <button type="button" id="3d-knapp" disabled onclick="plot3d()">3D!</button>
-    <div class="footer">
-        <p>Footer</p>
-    </div>
 </BODY>
 </HTML>
