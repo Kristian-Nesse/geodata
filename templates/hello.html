@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <TITLE>
+        Dybdekart av hafsfjorden
+    </TITLE>
+</HEAD>
+<BODY>
+    <div class="header">
+        <a href="#default" class="logo">CompanyLogo</a>
+        <div class="header-right">
+            <a class="active" href="#home">Home</a>
+            <a href="/kart">Kart</a>
+            <a href="#about">About</a>
+        </div>
+    </div>
+
+    <div id="myDiv" ondblclick="Contour(100,0)"></div>
+    <svg width="960" height="673"></svg>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3-contour.v1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+    <button type="button" id="3d-knapp" onclick="plot3d()">3D!</button>
+    <button type="button" id="contour-knapp" onclick="tilbake_til_contour()" disabled>Contour!</button>
+    <div class="footer">
+        <p>Footer</p>
+    </div>
+    <script>
+        var xstart;
+        var xslutt;
+        var zoomet;
+        var myplot = document.getElementById('myDiv')
+        //definerer variabler
+        Contour(200, 0)
+        //første gang plotet blir lastet
+        function Contour(zoom, eventdata) {
+
+            if (zoom == 200) {
+                xstart = 6534927.09;
+                xslutt = 6534882.22;
+                zoomet = zoom
+                //Denne funksjonen kjører når siden blir lastet eller når du zoomer ut
+                var vars = "&zoom=" + zoom
+                //Definerer variablene som skal sendes til serveren
+
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4) {
+                        res = request.response;
+                        console.log(res)
+                        act_on_resp(res, zoom - 50)
+                    }
+                }
+                request.open('POST', 'http://127.0.0.1:5000/firstzoom');
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(vars);
+            }
+            else {
+                xstart = eventdata['xaxis.range[0]']
+                xslutt = eventdata['xaxis.range[1]']
+                var vars = "xcoord=" + xstart + "&xcoord1=" + xslutt + "&zoom=" + zoom
+                zoomet = zoom
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
+                    if (request.readyState == 4) {
+
+                        res = request.response;
+                        resp = JSON.parse(res);
+                        if (resp === undefined || resp.length == 0) {
+                            console.log("")
+                        }
+                        else {
+                            act_on_resp(res, zoom - 50);
+                        }
+                    }
+                }
+                request.open('POST', 'http://127.0.0.1:5000/zoom');
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send(vars);
+
+            }
+        }
+        function tilbake_til_contour() {
+            document.getElementById("contour-knapp").disabled = true;
+            document.getElementById("3d-knapp").disabled = false;
+            var vars = "xcoord=" + xstart + "&xcoord1=" + xslutt + "&zoom=" + zoomet
+
+            console.log(zoomet);
+            console.log(xstart);
+            console.log(xslutt);
+
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (request.readyState == 4) {
+
+                    res = request.response;
+                    resp = JSON.parse(res);
+                    if (resp === undefined || resp.length == 0) {
+                        console.log("")
+                    }
+                    else {
+                        act_on_resp(res, zoomet);
+                    }
+                }
+            }
+            request.open('POST', 'http://127.0.0.1:5000/zoom');
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(vars);
+
+        }
+
+
+        function act_on_resp(resp, zoom) {
+            coords = JSON.parse(resp);
+            console.log(coords)
+            console.log(coords["x"])
+
+            var layout = {
+                title: 'Basic Contour Plot'
+            }
+            console.log(data)
+            console.log(zoomet);
+            console.log(xstart);
+            console.log(xslutt);
+            var svg = d3.select("svg"),
+                width = +svg.attr("width"),
+                height = +svg.attr("height");
+
+            var i0 = d3.interpolateHsvLong(d3.hsv(120, 1, 0.65), d3.hsv(60, 1, 0.90)),
+                i1 = d3.interpolateHsvLong(d3.hsv(60, 1, 0.90), d3.hsv(0, 0, 0.95)),
+                interpolateTerrain = function (t) { return t < 0.5 ? i0(t * 2) : i1((t - 0.5) * 2); },
+                color = d3.scaleSequential(interpolateTerrain).domain([90, 190]);
+
+            d3.json("volcano.json", function (error, volcano) {
+                if (error) throw error;
+
+                svg.selectAll("path")
+                    .data(d3.contours()
+                        .size([200, 200])
+                        .thresholds(d3.range(90, 195, 5))
+                        (coords["z"]))
+                    .enter().append("path")
+                    .attr("d", d3.geoPath(d3.geoIdentity().scale(width / volcano.width)))
+                    .attr("fill", function (d) { return color(d.value); });
+            });
+
+
+
+
+        }
+
+
+
+    </script>
+</BODY>
+</HTML>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Intro to MapView - Create a 2D map</title>
+    <style>
+        html, body, #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+    <script src="https://js.arcgis.com/4.10/"></script>
+    
+</head>
+<body>
+    <div id="viewDiv"></div>
+    <span id="info" style="position:absolute; left:100px; bottom: 100px; color:#0079c1; z-index:50;"></span>
+</body>
+<script>
+    var x;
+    var y;
+    require([
+
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/geometry/support/webMercatorUtils",
+        "dojo/dom",
+        "dojo/domReady!"
+
+    ], function (Map, MapView, webMercatorUtils, dom) {
+        console.log("ok")
+
+
+        var map = new Map({
+            basemap: "streets"
+        });
+        var view = new MapView({
+            container: "viewDiv",  // Reference to the scene div created in step 5
+            map: map,
+            zoom: 13,// Reference to the map object created before the scene
+            center: [5.649, 58.922],
+            ui: {
+                components: ["attribution"]
+            }
+
+        });
+        view.on("mouse-wheel", function (event) {
+            // prevents zooming with the mouse-wheel event
+            event.stopPropagation();
+        });
+        view.on("double-click", function (event) {
+            event.stopPropagation();
+        });
+        view.on("drag", function (event) {
+            // prevents panning with the mouse drag event
+            event.stopPropagation();
+        });
+        function showCoordinates(evt) {
+            var point = view.toMap({ x: evt.x, y: evt.y });
+            //the map is in web mercator but display coordinates in geographic (lat, long)
+            var mp = webMercatorUtils.webMercatorToGeographic(point);
+            //display mouse coordinates
+            x = mp.x
+            y = mp.y
+
+            dom.byId("info").innerHTML = mp.x.toFixed(3) + ", " + mp.y.toFixed(3);
+        }
+        view.when(function () {
+            //after map loads, connect to listen to mouse move & drag events
+            view.on("pointer-move", showCoordinates);
+        });
+
+
+    });
+    document.getElementById('viewDiv').onclick = function () {
+        console.log(x + "   " + y)
+    }
+</script>
+</html>
+
+
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="{{url_for('static', filename='plot.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/1.4.3/vega.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3-contour.v1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            background-image: url(https://no.fjordnorway.com/imageresizer/?image=%2Fdmsimgs%2F284CC553ECB7CEB8F365A67E6E5BB8DC85362DA5.jpg&action=ProductDetailFullWidth) background-color: #cccccc;
+        }
+    </style>
+
+</head>
+<body onload="Contour({{id}})">
+
+    
+<div id="myDiv" width="800" height="800"></div>
+<button onclick="d3get()" id="3d">3D</button>
+<button onclick="Contour({{id}})" id="contour" disabled>Contour</button>
+</body>
+
+
+</html>
