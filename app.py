@@ -27,9 +27,11 @@ def index():
  
     return render_template("kartK.html")
 
+
 @app.route('/plot',methods=['GET','POST'])
 def plot():
-    id=request.args.get('id')
+    id={}
+    id["id"]=request.args.get('id')
     print(id)
     return render_template('plot.html',id=id)
 #Første gang plotet blir lastet blir denne lastet

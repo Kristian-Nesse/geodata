@@ -18,20 +18,20 @@ var zoom = 0;
 var xhover;
 var yhover;
 var s = 0
-var liste;
+
 function Contour(rutenr) {
     
  
-    
-    id=rutenr
+    console.log(rutenr['id'])
+    id = rutenr['id']
     document.getElementById("3d").disabled = false;
     document.getElementById("contour").disabled = true;
 
-    liste=["178","165","164","179"]
+   
     
 
     //Definerer variablene som skal sendes til serveren
-    var vars = "id=" + liste
+    var vars = "id=" + id
     var request = new XMLHttpRequest();
     //Sender POST/GET request til serveren
     request.onreadystatechange = function () {
@@ -174,7 +174,7 @@ function d3get() {
     document.getElementById("3d").disabled = true;
     document.getElementById("contour").disabled = false;
 
-    var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + liste + "&xstart=" + xstart + "&xslutt=" + xslutt + "&ystart=" + ystart + "&yslutt=" + yslutt
+    var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + id + "&xstart=" + xstart + "&xslutt=" + xslutt + "&ystart=" + ystart + "&yslutt=" + yslutt
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -251,7 +251,7 @@ function plotreset() {
 
         zoom = 0
 
-        var vars = "&id=" + liste
+        var vars = "&id=" + id
         var request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (request.readyState == 4) {
@@ -298,7 +298,7 @@ function plotzoom() {
 
         zoom += 10
 
-        var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + liste + "&xstart=" + xstart + "&xslutt=" + xslutt + "&ystart=" + ystart + "&yslutt=" + yslutt
+        var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + id + "&xstart=" + xstart + "&xslutt=" + xslutt + "&ystart=" + ystart + "&yslutt=" + yslutt
         var request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (request.readyState == 4) {
@@ -338,7 +338,7 @@ function plotzoomut() {
         zoom -= 10
         if (zoom == 0) {
 
-            var vars =  "&id=" + liste
+            var vars =  "&id=" + id
             var request = new XMLHttpRequest();
             request.onreadystatechange = function () {
                 if (request.readyState == 4) {
@@ -362,7 +362,7 @@ function plotzoomut() {
             vest = -lvl / 8 + xzoom / 8
             nord =-yzoom / 8
             sor = -lvl / 8 + yzoom / 8
-            var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + liste + "&xstart=" + xstart + "&xslutt=" + xslutt + "&ystart=" + ystart + "&yslutt=" + yslutt
+            var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + id + "&xstart=" + xstart + "&xslutt=" + xslutt + "&ystart=" + ystart + "&yslutt=" + yslutt
             var request = new XMLHttpRequest();
             request.onreadystatechange = function () {
                 if (request.readyState == 4) {

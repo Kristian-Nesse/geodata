@@ -1,93 +1,72 @@
 ﻿<!DOCTYPE html>
-<head>
+<head>    
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <script>L_PREFER_CANVAS = false; L_NO_TOUCH = false; L_DISABLE_3D = false;</script>
+    <script>L_PREFER_CANVAS=false; L_NO_TOUCH=false; L_DISABLE_3D=false;</script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.3.4/dist/leaflet.js"></script>
-
-
-
+    
+    
+    
     <script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.8.24/jquery-ui.min.js"></script>
-    <script src="{{url_for('static', filename='plot.js')}}"></script>
 
+    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.3.4/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
-    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
-    <style>
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
-    <style>
-        #map {
-            position: relative;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
-    </style>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.3.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    
+    
     <meta name="viewport" content="width=device-width,
         initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
-        #map_b90be1dced984ce2a909db1cf994231e {
-            position: relative;
-            width: 100.0%;
-            height: 100.0%;
-            left: 0.0%;
-            top: 0.0%;
-        }
+            #map_b90be1dced984ce2a909db1cf994231e {
+                position: relative;
+                width: 100.0%;
+                height: 100.0%;
+                left: 0.0%;
+                top: 0.0%;
+                }
     </style>
 
     <style>
-        html, body, #map {
-            width: 100%;
-            height: 100%;
-            margin: 0px;
-            padding: 0px;
-        }
-
-        .leaflet-div-icon {
-            background: transparent !important;
-            border: none !important;
-            color: white;
-        }
-
-        .red {
-            color: red !important;
-        }
+            html,body,#map {width: 100%; height: 100%; margin: 0px; padding:0px; }
+            .leaflet-div-icon {
+                background: transparent!important;
+                border: none!important;
+                color: white;
+            }
+            .red {
+                color: red!important;
+            }
+    
     </style>
+    
+        
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.4.2/Control.FullScreen.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.4.2/Control.FullScreen.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.4.2/Control.FullScreen.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
     <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
-    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.draw/src/leaflet.draw.css" />
-    <script src="https://rawcdn.githack.com/ardhi/Leaflet.MousePosition/c32f1c84/src/L.Control.MousePosition.js"></script>
-    <link rel="stylesheet" href="https://rawcdn.githack.com/ardhi/Leaflet.MousePosition/c32f1c84/src/L.Control.MousePosition.css" />
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.draw/src/leaflet.draw.css"/>
+    
     <script src="https://rawcdn.githack.com/ljagis/leaflet-measure/2.1.7/dist/leaflet-measure.js"></script>
 
     <script src="static/L.TileLayer.Kartverket.js"></script>
-
-    <link rel="stylesheet" href="static/MarkerCluster.css" />
-    <link rel="stylesheet" href="static/MarkerCluster.Default.css" />
-    <link rel="stylesheet" href="static/leaflet-search.min.css" />
-    <link rel="stylesheet" href="static/leaflet-search.src.css" />
+    
+    <link rel="stylesheet" href="static/MarkerCluster.css"/>
+    <link rel="stylesheet" href="static/MarkerCluster.Default.css"/>
+    <link rel="stylesheet" href="static/leaflet-search.min.css"/>
+    <link rel="stylesheet" href="static/leaflet-search.src.css"/>
     <script src="static/leaflet.markercluster.js"></script>
     <script src="static/leaflet-search.src.js"></script>
-
-
+    
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="static/leaflet.elevation-0.0.2.min.js"></script>
     <link rel="stylesheet" href="static/leaflet.elevation-0.0.2.css" />
@@ -96,631 +75,729 @@
     <script src="static/proj4.js"></script>
     <script src="static/leaflet.motion.min.js"></script>
     <link rel="stylesheet" href="static/searchbox.min.css" />
-    <script src="static/L.Control.MousePosition.js"></script>
-    <link rel="stylesheet" href="static/L.Control.MousePosition.css"></link>
-    <link rel="stylesheet" href="static/leaflet.mousecoordinate.css"></link>
-
-    <script src="static/leaflet.mousecoordinate.js"></script>
-    <script src="static/L.LatLng.UTM.js"></script>
-
-    <link rel="stylesheet" href="https://rawcdn.githack.com/ljagis/leaflet-measure/2.1.7/dist/leaflet-measure.css" />
-
-    <style>
-        #vega_e265ff286f2d42c8ad6c31f49b68d182 {
-            position: relative;
-            width: 450.0px;
-            height: 250.0px;
-            left: 0.0%;
-            top: 0.0%;
-    </style>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/1.4.3/vega.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://d3js.org/d3-contour.v1.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-</head>
-<body>
-
-    <div class="folium-map" id="map"></div>
-    <div id="myDiv" width="500" height="500" ondblclick="Contour()"></div>
-    <button type="button" id="3d-knapp" onclick="plot3d()">3D!</button>
-</body>
-
-<script>       
-   
+    
+    
+    <link rel="stylesheet" href="static/leaflet.marker.highlight-src.css"/>
+    <script src="static/leaflet.marker.highlight-src.js"></script>
+    
     
 
+    <script src="static/L.LatLng.UTM.js"></script>
+    
+    <link rel="stylesheet" href="https://rawcdn.githack.com/ljagis/leaflet-measure/2.1.7/dist/leaflet-measure.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/1.4.3/vega.min.js"></script>
 
-        var bounds = null;
 
-
+</head>
+<body>    
+  <div class="folium-map" id="map"></div>
+</body>  
+    
+    <script>
+    var bounds = null;
+        
+   
         //Vis markører bug mellom søke på markør og vis markør!
-
-
-        var map_b90be1dced984ce2a909db1cf994231e = L.map(
-            'map', {
-                crs: L.CRS.Base,
-                center: [58.923263, 5.648249],
-                zoom: 14,
-                minZoom: 14,
-                maxZoom: 18,
-                maxBounds: bounds,
-                layers: [],
-                worldCopyJump: true,
-                crs: L.CRS.EPSG3857,
-                zoomControl: true,
-
-            });
-
-        L.control.mousePosition({
-            options: {
-                posistion: "topleft"
-            }
-        }).addTo(map_b90be1dced984ce2a909db1cf994231e);
-
-
-
-
-
-
-        var geojson = {
-            "type": "FeatureCollection",
-            "features": [
-                {
-                    "type": "Feature",
-                    "properties": {},
-                    "geometry": {
-                        "type": "LineString",
-                        "coordinates": [
-                            [
-                                5.639762878417969,
-                                58.92343585591476,
-                                11.5
-                            ],
-                            [
-                                5.648946762084961,
-                                58.92332509487197,
-                                11.45
-                            ],
-                            [
-                                5.652422904968262,
-                                58.925894659576656,
-                                10.15
-                            ],
-                            [
-                                5.659675598144531,
-                                58.925695303640225,
-                                8.16
-                            ],
-                            [
-                                5.661735534667969,
-                                58.928131797259525,
-                                5
-                            ]
-                        ]
-                    }
-                }
-            ]
+        
+      
+         var map_b90be1dced984ce2a909db1cf994231e = L.map(
+             'map', {
+             
+             center: [58.923263, 5.648249],
+             zoom: 14,
+             minZoom: 14,
+             maxZoom: 18,
+             maxBounds: bounds,
+             layers: [],
+             worldCopyJump: true,
+             
+             zoomControl: true,
+             
+            
+             });
+        
+        
+        
+        
+        
+         var geojson={
+        "type": "FeatureCollection",
+        "features": [
+         {
+           "type": "Feature",
+           "properties": {},
+           "geometry": {
+             "type": "LineString",
+             "coordinates": [
+               [
+                 5.639762878417969,
+                 58.92343585591476,
+                 11.5
+               ],
+               [
+                 5.648946762084961,
+                 58.92332509487197,
+                 11.45
+               ],
+               [
+                 5.652422904968262,
+                 58.925894659576656,
+                 10.15
+               ],
+               [
+                 5.659675598144531,
+                 58.925695303640225,
+                 8.16
+               ],
+               [
+                 5.661735534667969,
+                 58.928131797259525,
+                 5
+               ]
+             ]
+           }
+         }
+        ]
         };
+        
+        
+         map_b90be1dced984ce2a909db1cf994231e.zoomControl.setPosition('bottomright');
+         
+        
+         var el = L.control.elevation({collapsed: true});
+         el.addTo(map_b90be1dced984ce2a909db1cf994231e);
+         var gjl = L.geoJson(geojson,{
+                 onEachFeature: el.addData.bind(el)
+             }).addTo(map_b90be1dced984ce2a909db1cf994231e);
+        
+        
+         //Lager ikon-klasse
+         var LeafIcon = L.Icon.extend({
+         options: {
+             iconUrl: 'Funn.PNG',
+             iconSize:     [38, 95],
+             shadowSize:   [50, 64],
+             iconAnchor:   [22, 94],
+             popupAnchor:  [-3, -76]
+             }
+         });
+        
+        
+        
+         var rect25=[[58.93405561256626, 5.628818370381643],[58.93575812536065, 5.62517468561364]];
+         //var rect27=[[58.93943472265877, 5.628293238666819],[58.93755115568232, 5.624999462447453]];
+         //var rect26=[[58.93755115568232, 5.624999462447453],[58.93584865008685, 5.628643347931181]];
+         //var rect48=[[58.937641686784346, 5.628468304027466],[58.939525167228744, 5.631762280986676]];
+         //var rect47=[[58.937641686784346, 5.628468304027466],[58.935939081917546, 5.632112031696897]];
+         var rect46=[[58.934146038028324, 5.632286874903054],[58.93584865008685, 5.628643347931181]];
+         var rect8=[[58.923116317083995, 5.622933260032947],[58.92141385313628, 5.626575698148595]];
+        
+        
+         function konverterUTMtilLatLng(xmin,ymin,xmax,ymax) {
+             var xymin=L.utm({x:xmin, y: ymin, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+             var xmaxymin=L.utm({x:xmax, y: ymin, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+             var xminymax=L.utm({x:xmin, y: ymax, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+             var xymax=L.utm({x:xmax, y: ymax, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'}); 
+             var XYMin=xymin.latLng();
+             var XMaxYMin=xmaxymin.latLng();
+             var XMinYMax=xminymax.latLng();
+             var XYMax=xymax.latLng();
+             
+             rektangel=[[XYMin.lat,XYMin.lng],[XMaxYMin.lat,XMaxYMin.lng],[XYMax.lat,XYMax.lng],[XMinYMax.lat,XYMin.lng],[XYMin.lat,XYMin.lng]];
+             return(rektangel);
+         }
+        
+         var senter1=L.utm({x:305900, y: 6538100, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter2=L.utm({x:306100, y: 6538090, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter3=L.utm({x:305890, y: 6537900, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter4=L.utm({x:306090, y: 6537889, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter5=L.utm({x:305880, y: 6537700, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter6=L.utm({x:305870, y: 6537500, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter7=L.utm({x:305670, y: 6537510, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter8=L.utm({x:306080, y: 6537690, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});  
+         var senter9=L.utm({x:306300, y: 6538080, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter10=L.utm({x:306500, y: 6538070, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter11=L.utm({x:306290, y: 6537880, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter92=L.utm({x:306490, y: 6537870, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter69=L.utm({x:306280, y: 6537680, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter45=L.utm({x:306070, y: 6537490, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter68=L.utm({x:306270, y: 6537480, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter91=L.utm({x:306470, y: 6537470, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter90=L.utm({x:306460, y: 6537270, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
+         var senter107=L.utm({x:306660, y: 6537260, datum: 'WGS84',hemi:'North', zone: 32, band: 'V'});
 
 
-        map_b90be1dced984ce2a909db1cf994231e.zoomControl.setPosition('bottomright');
+         var testen=senter1.latLng();
+         var testen2=senter2.latLng();
+         var testen3=senter3.latLng();
+         var testen4=senter4.latLng();
+         var testen5=senter5.latLng();
+         var testen6=senter6.latLng();
+         var testen7=senter7.latLng();
+         var testen8=senter8.latLng();
+         var testen9=senter9.latLng();
+         var testen10=senter10.latLng();
+         var testen11=senter11.latLng();
+         var testen92=senter92.latLng();
+         var testen69=senter69.latLng();
+         var testen45=senter45.latLng();
+         var testen68=senter68.latLng();
+         var testen91=senter91.latLng();
+         var testen90=senter90.latLng();
+         var testen107=senter107.latLng();
+
+         var sirkel=L.circle([testen107.lat,testen107.lng],100,{color: '#345'}).addTo(map_b90be1dced984ce2a909db1cf994231e);
+         console.log(sirkel.getBounds());
+
+         // Tom array som funksjonen under bruker
+         var markorene=[];
+
+         // BRUKE REKTANGEL ID TIL MERKING AV RUTER!!
+          
+         function recMark(grenser,id){
+          var rect=L.rectangle(grenser,{color: "#ffffff"});
+          rect._myId=id;
+        
+
+          var marks=L.marker([rect.getBounds().getCenter().lat,rect.getBounds().getCenter().lng],{highlight: "temporary"});
+          //console.log(marks.getLatLng());
+          markorene.push(marks);
+          marks._myId=id;
+          //map_b90be1dced984ce2a909db1cf994231e.addLayer(rect);
+          
+          marks.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rect);
+             marks.on('mouseout',function(e){
+                 rect.remove();
+             });
+          
+         });
+         
+         return mark
+         }
+         
+
+         //Lager nytt objekt
+
+         var rute27=recMark([[58.93939221136062,5.62839003064752],[58.93759356814876,5.6249040039504505]],27);
+         var rute26=recMark([[58.93759465175428,5.628391646319517],[58.935796008542425,5.62490580196275]],26);
+         var rute48=recMark([[58.93939304772747,5.631867719518598],[58.93759440451564,5.628381691985159]],48);
+         var rute47=recMark([[58.93758652116998,5.631870028610875],[58.935787877958155,5.62838418425411]],47);
+         var rute25=recMark([[58.93579709172981,5.628393259336035],[58.93399844851798,5.624907595656104]],25);
+         var rute24=recMark([[58.93399953128734,5.628394868651876],[58.93220088807549,5.624909386076435]],24);
+         var rute9=recMark([[58.93399860665262,5.624917726117134],[58.93220088807549,5.621432244378225]],9);
+         var rute46=recMark([[58.9357979245903,5.631870585866717],[58.93399928137844,5.628384922186785]],46);
+         var rute71=recMark([[58.93939379054683,5.635345410600428],[58.937595147335,5.631859384739811]],71);
+         var rute93=recMark([[58.93939443981859,5.638823107216392],[58.93759579660677,5.635337078846581]],93);
+         var rute70=recMark([[58.937596227440686,5.6353466651640005],[58.93579758422886,5.631860819970865]],70);
+         var rute92=recMark([[58.937596874972456,5.638824179970677],[58.93579823176063,5.63533833394101]],92);
+         var rute69=recMark([[58.935798663916465,5.635347915862027],[58.93400002070461,5.631862252182094]],69);
+         var rute45=recMark([[58.93400036239455,5.631872014045652],[58.93220171918272,5.628386531888518]],45);
+         var rute68=recMark([[58.93400109997414,5.63534916394934],[58.93220245676231,5.631863680119143]],68);
+         var rute91=recMark([[58.93400174402593,5.638826315621972],[58.93220310081407,5.635340833464838]],91);
+         var rute90=recMark([[58.932204177925556,5.638827378938167],[58.93040553471371,5.635342077476571]],90);
+         var rute107=recMark([[58.932204726715945,5.6423043539604265],[58.93040608350409,5.63881905249891]],107);
+         // On høgrklikk som printer ut allemarkørene sin id
 
 
-        var el = L.control.elevation({ collapsed: true });
-        el.addTo(map_b90be1dced984ce2a909db1cf994231e);
-        var gjl = L.geoJson(geojson, {
-            onEachFeature: el.addData.bind(el)
-        }).addTo(map_b90be1dced984ce2a909db1cf994231e);
-
-
-        //Lager ikon-klasse
-        var LeafIcon = L.Icon.extend({
-            options: {
-                iconUrl: 'Funn.PNG',
-                iconSize: [38, 95],
-                shadowSize: [50, 64],
-                iconAnchor: [22, 94],
-                popupAnchor: [-3, -76]
-            }
-        });
-
-
-
-        var rect25 = [[58.93405561256626, 5.628818370381643], [58.93575812536065, 5.62517468561364]];
-        //var rect27=[[58.93943472265877, 5.628293238666819],[58.93755115568232, 5.624999462447453]];
-        var rect26 = [[58.93755115568232, 5.624999462447453], [58.93584865008685, 5.628643347931181]];
-        //var rect48=[[58.937641686784346, 5.628468304027466],[58.939525167228744, 5.631762280986676]];
-        var rect47 = [[58.937641686784346, 5.628468304027466], [58.935939081917546, 5.632112031696897]];
-        var rect46 = [[58.934146038028324, 5.632286874903054], [58.93584865008685, 5.628643347931181]];
-        var rect8 = [[58.923116317083995, 5.622933260032947], [58.92141385313628, 5.626575698148595]];
-
-
-        function konverterUTMtilLatLng(xmin, ymin, xmax, ymax) {
-            var min = L.utm({ x: xmin, y: ymin, datum: 'WGS84', hemi: 'North', zone: 32, band: 'V' });
-            var max = L.utm({ x: xmax, y: ymax, datum: 'WGS84', hemi: 'North', zone: 32, band: 'V' });
-            var Min = min.latLng();
-            var xminst = Min.lat;
-            var yminst = Min.lng;
-            var Max = max.latLng();
-            var xstorst = Max.lat;
-            var ystorst = Max.lng;
-            rektangel = [[xminst, yminst], [xminst, ystorst], [xstorst, ystorst], [xstorst, yminst]];
-            return (rektangel);
-        }
-
-        var rect70 = konverterUTMtilLatLng(306200, 6537800, 306400, 6538000);
-        var rect71 = konverterUTMtilLatLng(306200, 6538000, 306400, 6538200);
-
-        var rect27 = konverterUTMtilLatLng(305800, 6538000, 306000, 6538200);
-        console.log(rect27);
-        var rect48 = konverterUTMtilLatLng(306000, 6538200, 306200, 6538000);
-        bounds27 = L.latLngBounds(rect27[0], rect27[1]);
-        bounds48 = L.latLngBounds(rect48[0], rect48[1]);
-
-
-        //Kanskje lage grenser for 
-
-        //var mark27=L.marker([(rect27[0][0]+rect27[2][0])/2,(rect27[0][1]+rect27[2][1])/2]);
-
-        var mark48 = L.marker([(rect48[0][0] + rect48[1][0]) / 2, (rect48[0][1] + rect48[1][1]) / 2]);
-
-
-        //Lager markører
-
-        var mark8 = L.marker([(rect8[0][0] + rect8[1][0]) / 2, (rect8[0][1] + rect8[1][1]) / 2]);
-        var mark25 = L.marker([(rect25[0][0] + rect25[1][0]) / 2, (rect25[0][1] + rect25[1][1]) / 2]);
-
-        var mark26 = L.marker([(rect26[0][0] + rect26[1][0]) / 2, (rect26[0][1] + rect26[1][1]) / 2]);
-
-        var mark47 = L.marker([(rect47[0][0] + rect47[1][0]) / 2 - 0.0001, (rect47[0][1] + rect47[1][1]) / 2 - 0.0001]);
-        var mark46 = L.marker([(rect46[0][0] + rect46[1][0]) / 2 - 0.0001, (rect46[0][1] + rect46[1][1]) / 2 - 0.0001]);
-
-
-        var rec8 = L.rectangle(rect8, { color: "#ffffff", weight: 4 });
-        var rec25 = L.rectangle(rect25, { color: "#ffffff", weight: 4 });
-        var rec27 = L.polygon(rect27, { color: "#ffffff", weight: 4 });
-        var rec26 = L.rectangle(rect26, { color: "#ffffff", weight: 4 });
-        var rec48 = L.polygon(rect48, { color: "#ffffff", weight: 4 });
-        var rec47 = L.rectangle(rect47, { color: "#ffffff", weight: 4 });
-        var rec46 = L.rectangle(rect46, { color: "#ffffff", weight: 4 });
-        var rec71 = L.rectangle(rect71, { color: "#ffffff", weight: 4 });
-        var rec70 = L.rectangle(rect70, { color: "#ffffff", weight: 4 });
-        console.log(rec27.getBounds().getCenter().lat);
-
-
-        var mark27 = L.marker([rec27.getBounds().getCenter().lat, rec27.getBounds().getCenter().lng]);
-        var mark48 = L.marker([rec48.getBounds().getCenter().lat, rec48.getBounds().getCenter().lng]);
-        var mark71 = L.marker([rec71.getBounds().getCenter().lat, rec71.getBounds().getCenter().lng]);
-        var mark70 = L.marker([rec70.getBounds().getCenter().lat, rec70.getBounds().getCenter().lng]);
-        // Må lage ID for å kunne detektere hvilken rute som er klikket! 
-        mark25._myId = 25;
-        mark26._myId = 26;
-
-
-        mark47._myId = 47;
-        mark48._myId = 48;
-        mark70._myId = 70;
-        mark71._myId = 71;
+         map_b90be1dced984ce2a909db1cf994231e.on('popupopen', function (e) {
+             var id="id="+ e.popup._source._myId;
+            
+             window.open('/plot?id=' + e.popup._source._myId, "plot", "width=1000, height=800, top=100")
+             
+         });
+        
+         
+        
+         
+         var mark=L.layerGroup(markorene);
 
 
 
-        map_b90be1dced984ce2a909db1cf994231e.on('popupopen', function (e) {
-            var id = e.popup._source._myId;
+         /*
 
-            window.open('/plot?id=' + id, "plot",  "width=1000, height=800, top=100")
+         var rect27=L.rectangle([[58.93939221136062,5.62839003064752],[58.93759356814876,5.6249040039504505]]);
+         var rect48=L.rectangle([[58.93939304772747,5.631867719518598],[58.93759440451564,5.628381691985159]]);
+         var rect26=L.rectangle([[58.93759465175428,5.628391646319517],[58.935796008542425,5.62490580196275]]);
+         var rect47=L.rectangle([[58.93758652116998,5.631870028610875],[58.935787877958155,5.62838418425411]]);
+         
 
-
-        });
-
-
-        //Lager LayerGroups
-        var markorer = [mark8, mark48, mark47, mark46, mark25, mark26, mark27, mark71, mark70];
-        var mark = L.layerGroup(markorer);
+        
 
 
 
-        //Lager marker cluster grupper
+         var rect70=konverterUTMtilLatLng(306200,6537800,306400,6538000)
+         console.log(rect70);
+         var rect71=konverterUTMtilLatLng(306200,6538000,306400,6538200);
+        
+         //var rect27=konverterUTMtilLatLng(305800,6538000,306000,6538200);
+         console.log(rect27);
+         //var rect48=konverterUTMtilLatLng(306000,6538200,306200,6538000);
+         //bounds27=L.latLngBounds(rect27[0],rect27[1]);
+         //bounds48=L.latLngBounds(rect48[0],rect48[1]);
+         
+        
+         //Kanskje lage grenser for 
+        
+         //var mark27=L.marker([(rect27[0][0]+rect27[2][0])/2,(rect27[0][1]+rect27[2][1])/2]);
+        
+         
+        
+        
+         //Lager markører
+        
+         var mark8=L.marker([(rect8[0][0]+rect8[1][0])/2,(rect8[0][1]+rect8[1][1])/2]);
+         var mark25=L.marker([(rect25[0][0]+rect25[1][0])/2,(rect25[0][1]+rect25[1][1])/2]);
+         
+         var mark26=L.marker([rect26.getBounds().getCenter().lat,rect26.getBounds().getCenter().lng]);
+         
+         var mark47=L.marker([rect47.getBounds().getCenter().lat,rect47.getBounds().getCenter().lng]);
+         var mark46=L.marker([(rect46[0][0]+rect46[1][0])/2-0.0001,(rect46[0][1]+rect46[1][1])/2-0.0001]);
+         
+        
+         var rec8=L.rectangle(rect8, {color: "#ffffff", weight: 4});
+         var rec25=L.rectangle(rect25, {color: "#ffffff", weight: 4});
+         
+         
+         
+         
+         var rec46=L.rectangle(rect46, {color: "#ffffff", weight: 4});
+         var rec71=L.rectangle(rect71, {color: "#ffffff", weight: 4});
+         var rec70=L.rectangle(rect70, {color: "#ffffff", weight: 4});
+         
+        
+        
+         var mark27=L.marker([rect27.getBounds().getCenter().lat,rect27.getBounds().getCenter().lng]);
+         var mark48=L.marker([rect48.getBounds().getCenter().lat,rect48.getBounds().getCenter().lng]);
+         var mark71=L.marker([rec71.getBounds().getCenter().lat,rec71.getBounds().getCenter().lng]);
+         var mark70=L.marker([rec70.getBounds().getCenter().lat,rec70.getBounds().getCenter().lng]);
+         // Må lage ID for å kunne detektere hvilken rute som er klikket! 
+         mark25._myId=25;
+         mark26._myId=26;
+         mark47._myId=47;
+         mark48._myId=48;
+         mark70._myId=70;
+         mark71._myId=71;
+        
+        
+         */
+         
+        
+         //Lager LayerGroups
+         //var markorer=[mark8,mark48,mark47,mark46,mark25,mark26,mark27,mark71,mark70];
+         
+         
+        
+        
+         //Lager marker cluster grupper
+        
+         // Får bugs dersom en bruker bouncmarker. Se nærme på dette dersom relevant
 
-        var markers = L.markerClusterGroup({ maxClusterRadius: 100, singleMarkerMode: false });
-        markers.addLayer(mark);
+         var markers=L.markerClusterGroup({
+         polygonOptions: {
+            // Må sette inn ting dersom en vil endre polygon
+            color:  '#ffffff'
 
 
+         },maxClusterRadius: 250,spiderfyOnMaxZoom: false,singleMarkerMode:false,zoomToBoundsOnClick:false, disableClusteringAtZoom:16});
+         markers.addLayer(mark);
 
-        //map_b90be1dced984ce2a909db1cf994231e.addLayer(markers);
+         markers.on('clusterclick', function(a){
+            var  childMarkers= a.layer.getAllChildMarkers();
+            console.log(childMarkers);
+            var childID=[];
+            for(i=0;i<childMarkers.length;i++) {
+                console.log("Lengde: "+ childMarkers.length);
+                childID.push(+childMarkers[i]._myId);
+             }
+
+            window.open('/plot?id=' + childID, "plot", "width=1000, height=800, top=100")
 
 
-
-        mark.eachLayer(function (marker) {
-
-            var html = '<a href="http://www.google.com">Visit Google</a>';
-            var html2 = '<a href="http://hafrsfjord.org/">Funn i Harfsfjord</a>';
-            var html5 = "<dl><dt>Du kan:</dt>"
+         });
+         
+         
+        
+         
+         
+        
+         //map_b90be1dced984ce2a909db1cf994231e.addLayer(markers);
+        
+         
+        
+         mark.eachLayer(function(marker) {
+        
+         var html='<a href="http://www.google.com">Visit Google</a>';
+         var html2='<a href="http://hafrsfjord.org/">Funn i Harfsfjord</a>';
+         var html5="<dl><dt>Du kan:</dt>"
                 + "<dd>" + html + "</dd>"
                 + "<dt>Eller</dt>"
                 + "<dd>" + html2 + "</dd>";
-
-
-            /*var properties = marker.feature.properties;
+                
+        
+          /*var properties = marker.feature.properties;
+        
+         var html = '<strong>' + properties.description + '</strong>';
+         */
+         marker.bindPopup(html5);
+         marker.bindTooltip("Klikk for info!");
+         });
+        
+        
+         // Lager Rektangler
+         
+        
+         
+        
+         var overlayRec = {
+         "Vis markører": markers
+         };
+        
+         
+         /*
+         map_b90be1dced984ce2a909db1cf994231e.on('zoomend', function(e) {
+         
+         if (map_b90be1dced984ce2a909db1cf994231e.getZoom() >= 10){
+             if (map_b90be1dced984ce2a909db1cf994231e.hasLayer(Markorer)){
+                 
+             } else {
+                 map_b90be1dced984ce2a909db1cf994231e.addLayer(Markorer);
+             }
+         };
+        
+        
+         if (map_b90be1dced984ce2a909db1cf994231e.getZoom() > 17){
+             if (map_b90be1dced984ce2a909db1cf994231e.hasLayer(Markorer)) {
+                 
+                 map_b90be1dced984ce2a909db1cf994231e.removeLayer(Markorer);
+             } else {
+                 console.log("no point layer active");
+             }
+         };
+        
+        });
+        
        
-           var html = '<strong>' + properties.description + '</strong>';
-           */
-            marker.bindPopup(html5);
-            marker.bindTooltip("Klikk for info!");
-        });
-
-
-        // Lager Rektangler
-
-
-
-
-        var overlayRec = {
-            "Vis markører": markers
-        };
-
-
-        /*
-        map_b90be1dced984ce2a909db1cf994231e.on('zoomend', function(e) {
+         mark8.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rec8);
+             mark8.on('mouseout',function(e){
+                 rec8.remove();
+             });
         
-        if (map_b90be1dced984ce2a909db1cf994231e.getZoom() >= 10){
-            if (map_b90be1dced984ce2a909db1cf994231e.hasLayer(Markorer)){
-                
-            } else {
-                map_b90be1dced984ce2a909db1cf994231e.addLayer(Markorer);
-            }
-        };
-    
-    
-        if (map_b90be1dced984ce2a909db1cf994231e.getZoom() > 17){
-            if (map_b90be1dced984ce2a909db1cf994231e.hasLayer(Markorer)) {
-                
-                map_b90be1dced984ce2a909db1cf994231e.removeLayer(Markorer);
-            } else {
-                console.log("no point layer active");
-            }
-        };
-    
-    });
-    
-    */
-        mark8.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec8);
-            mark8.on('mouseout', function (e) {
-                rec8.remove();
-            });
-
-        });
-        mark25.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec25);
-            mark25.on('mouseout', function (e) {
-                rec25.remove();
-            });
-
-        });
-
-        mark27.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec27);
-            mark27.on('mouseout', function (e) {
-                rec27.remove();
-            });
-
-        });
-
-        mark26.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec26);
-            mark26.on('mouseout', function (e) {
-                rec26.remove();
-            });
-
-        });
-
-        mark48.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec48);
-            mark48.on('mouseout', function (e) {
-                rec48.remove();
-            });
-
-        });
-
-        mark47.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec47);
-            mark47.on('mouseout', function (e) {
-                rec47.remove();
-            });
-
-        });
-        mark46.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec46);
-            mark46.on('mouseout', function (e) {
-                rec46.remove();
-            });
-
-        });
-        mark70.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec70);
-            mark70.on('mouseout', function (e) {
-                rec70.remove();
-            });
-
-        });
-        mark71.on('mouseover', function (e) {
-            map_b90be1dced984ce2a909db1cf994231e.addLayer(rec71);
-            mark71.on('mouseout', function (e) {
-                rec71.remove();
-            });
-
-        });
-
-        var linje = [
-            [
-                58.93610457427722,
-                5.631694793701172
-
-            ],
-            [
-                58.93424442434438,
-                5.632038116455078
-
-            ],
-            [
-                58.93251705249717,
-                5.634784698486328
-
-            ],
-            [
-                58.93123254046986,
-                5.637788772583008
-
-            ],
-            [
-                58.93047952843808,
-                5.638303756713867
-
-            ],
-            [
-                58.9286633730179,
-                5.638561248779297
-
-            ],
-            [
-                58.926404119518175,
-                5.638303756713867
-
-            ],
-            [
-                58.924587749699604,
-                5.637445449829101
-
-            ],
-            [
-                58.92223961785114,
-                5.637102127075195
-
-            ],
-            [
-                58.919935635190356,
-                5.636072158813477
-
-            ],
-            [
-                58.918251858344924,
-                5.635042190551757
-
-            ],
-            [
-                58.916523686223464,
-                5.634012222290039
-
-            ],
-            [
-                58.9150170040784,
-                5.629377365112305
-
-            ],
-            [
-                58.914972688902765,
-                5.626544952392578
-
-            ],
-            [
-                58.914972688902765,
-                5.624313354492187
-
-            ]
-        ];
-
-
-
-        var tur;
-
-
-        tur = L.motion.polyline(linje, {
-            color: "red"
-        }, {
-                auto: false,
-                duration: 30000,
-                easing: L.Motion.Ease.easeInOutQuad
-            }, {
-                removeOnEnd: true,
-                icon: L.divIcon({ html: "<i class='fa fa-ship fa-2x' aria-hidden='true'></i>", iconSize: L.point(27.5, 24) })
-            }).addTo(map_b90be1dced984ce2a909db1cf994231e);
-
-
-
-        tur.addEventListener("ended", function () {
-            alert("halo");
-        })
-
-        var searchboxControl = createSearchboxControl();
-        var control = new searchboxControl({
-            sidebarTitleText: 'Søk',
-            sidebarMenuItems: {
-                Items: [
-                    { type: "link", name: "Slaget ved Harsfjord", href: "templates/kart3.html", icon: "Funn-i-Hafrsfjord-logo-final.png" },
-                    { type: "link", name: "Funn i Harfsfjord", href: "http://hafrsfjord.org/", icon: "Funn-i-Hafrsfjord-logo-final" },
-                    { type: "link", name: "Bli medlem!", href: "http://hafrsfjord.org/profile/membership-checkout/?level=1", icon: "Funn-i-Hafrsfjord-logo-final.png" },
-                    { type: "button", name: "Kjør rute", onclick: "tur.motionStart()", icon: "Funn-i-Hafrsfjord-logo-final.png" }
-
-                ]
-            }
-        });
-
-        control._searchfunctionCallBack = function (searchkeywords) {
-
-            for (i = 0; i < markorer.length; i++) {
-                if (searchkeywords == String(markorer[i]._myId)) {
-                    mark.addTo(map_b90be1dced984ce2a909db1cf994231e);
-                    map_b90be1dced984ce2a909db1cf994231e.setView(markorer[i].getLatLng(), 18);
-
-                }
-
-            }
-
-
-            if (!searchkeywords) {
-                searchkeywords = "Du har ikke søkt på noe"
-            }
-
-        }
-
-        map_b90be1dced984ce2a909db1cf994231e.addControl(control);
-
-
-        // topo4 er kartet med best zoom, og kræsjer ikkje
-
-        var i, layer;
-        var layers = L.tileLayer.kartverket.getLayers();
-        console.log(layers);
-        var baseLayers = {};
-        for (i = 0; i < layers.length; i++) {
-            if (i != 10 && i != 4 && i != 1 && i != 5) {
-                layer = layers[i];
-                baseLayers[layer] = L.tileLayer.kartverket(layer);
-            }
-        }
-
-
-
-        var sjo = "http://opencache.statkart.no/gatekeeper/gk/gk.open";
-
-
-        var nosjolayer = new L.TileLayer.WMS(sjo, {
-            layers: 'sjokartraster',
-            format: 'image/png',
-            attribution: '<a href="http://kartverket.no/">Kartverket</a>',
-            transparent: false
-        });
-
-
-
-        var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        });
-
-        var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        });
-
-        baseLayers["Sjøkart"] = nosjolayer;
-        baseLayers["Satelitt"] = googleHybrid;
-
-        console.log(baseLayers);
-        googleHybrid.addTo(map_b90be1dced984ce2a909db1cf994231e);
-
-
-        L.control.layers(baseLayers, overlayRec).addTo(map_b90be1dced984ce2a909db1cf994231e);
-
-
-
-
-
-        var videoUrls = 'https://www.youtube.com/watch?v=L3UjvRvGD54';
-        var bounds = [[32, -130], [13, -100]];
-
-        var videoOverlay = L.videoOverlay(videoUrls, bounds, {
-            opacity: 0.7,
-            loop: false
-        }).addTo(map_b90be1dced984ce2a909db1cf994231e);
-
-        var videoElement = videoOverlay.getElement();
-
-        videoElement.addEventListener('ended', function () {
-            videoOverlay.remove();
-        });
-
-
-        L.control.fullscreen({
-            position: 'topright',
-            title: 'Full Skjerm',
-            titleCancel: 'Gå ut av fullskjerm',
-            forceSeparateButton: false,
-        }).addTo(map_b90be1dced984ce2a909db1cf994231e);
-        map_b90be1dced984ce2a909db1cf994231e.on('enterFullscreen', function () {
-            console.log('entered fullscreen');
-        });
-
-
-
-
-        var tile_layer_a85a5855089e4623b2e2539e5c08b73e = L.tileLayer(
-            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {
-                "attribution": null,
-                "detectRetina": false,
-                "maxNativeZoom": 18,
-                "maxZoom": 18,
-                "minZoom": 0,
-                "noWrap": false,
-                "opacity": 1,
-                "subdomains": "abc",
-                "tms": false
-            });
-
-
-        // lage crosshair til minimap og koble den sammen med konvertering, visning og markering. Bør vell også ha crosshair til mainmap
-
-        var mini_map_ac9ed6990b7a4538972515a1f1f43907 = new L.Control.MiniMap(baseLayers["Sjøkart"],
-            {
-                "autoToggleDisplay": false,
-                "centerFixed": false,
-                "collapsedHeight": 25,
-                "collapsedWidth": 25,
-                "height": 325,
-                "minimized": false,
-                "position": "bottomright",
-                "toggleDisplay": false,
-                "width": 325,
-                "zoomAnimation": true,
-                "zoomLevelFixed": null,
-                "zoomLevelOffset": -2
-            });
-        map_b90be1dced984ce2a909db1cf994231e.addControl(mini_map_ac9ed6990b7a4538972515a1f1f43907);
-
-    
-    
-            
+         });
+         mark25.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rec25);
+             mark25.on('mouseout',function(e){
+                 rec25.remove();
+             });
         
-    /*
+         });
+         
+         mark27.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rect27);
+             mark27.on('mouseout',function(e){
+                 rect27.remove();
+             });
+        
+         });
+        
+         mark26.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rect26);
+             mark26.on('mouseout',function(e){
+                 rect26.remove();
+             });
+        
+         });
+        
+         mark48.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rect48);
+             mark48.on('mouseout',function(e){
+                 rect48.remove();
+             });
+        
+         });
+        
+         mark47.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rect47);
+             mark47.on('mouseout',function(e){
+                 rect47.remove();
+             });
+        
+         });
+         mark46.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rec46);
+             mark46.on('mouseout',function(e){
+                 rec46.remove();
+             });
+        
+         });
+         mark70.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rec70);
+             mark70.on('mouseout',function(e){
+                 rec70.remove();
+             });
+        
+         });
+         mark71.on('mouseover',function(e){
+             map_b90be1dced984ce2a909db1cf994231e.addLayer(rec71);
+             mark71.on('mouseout',function(e){
+                 rec71.remove();
+             });
+        
+         });
 
-        var mouse_position_e57300a580c94ad8a8562f46a1d7b64e = new L.Control.MousePosition(
-            {
-  "emptyString": "Unavailable",
-  "lngFirst": false,
-  "numDigits": 5,
-  "position": "bottomright",
-  "prefix": "",
-  "separator": " : "
-});
-        mouse_position_e57300a580c94ad8a8562f46a1d7b64e.options["latFormatter"] = undefined;
-        mouse_position_e57300a580c94ad8a8562f46a1d7b64e.options["lngFormatter"] = undefined;
-        map_b90be1dced984ce2a909db1cf994231e.addControl(mouse_position_e57300a580c94ad8a8562f46a1d7b64e);
-
-        */
-    
+          */
+        
+         var linje = [
+               [
+                 58.93610457427722,
+                 5.631694793701172
+                 
+               ],
+               [
+                 58.93424442434438,
+                 5.632038116455078
+                 
+               ],
+               [ 
+                 58.93251705249717,
+                 5.634784698486328
+                 
+               ],
+               [
+                 58.93123254046986,
+                 5.637788772583008
+                 
+               ],
+               [ 
+                 58.93047952843808,
+                 5.638303756713867
+                 
+               ],
+               [
+                 58.9286633730179,
+                 5.638561248779297
+                 
+               ],
+               [ 
+                 58.926404119518175,
+                 5.638303756713867
+                 
+               ],
+               [
+                 58.924587749699604,
+                 5.637445449829101
+                 
+               ],
+               [
+                 58.92223961785114,
+                 5.637102127075195
+                 
+               ],
+               [
+                 58.919935635190356,
+                 5.636072158813477
+                 
+               ],
+               [
+                 58.918251858344924,
+                 5.635042190551757
+                 
+               ],
+               [
+                 58.916523686223464,
+                 5.634012222290039
+                 
+               ],
+               [
+                 58.9150170040784,
+                 5.629377365112305
+                 
+               ],
+               [
+                 58.914972688902765,
+                 5.626544952392578
+                 
+               ],
+               [
+                 58.914972688902765,
+                 5.624313354492187
+                 
+               ]
+             ];
+        
+        
+        
+         var tur;
+         
+         
+         tur=L.motion.polyline(linje, {
+             color: "red"
+             }, {
+                 auto: false,
+                 duration: 30000,
+                 easing: L.Motion.Ease.easeInOutQuad
+             }, {
+                 removeOnEnd: true,
+                 icon: L.divIcon({html: "<i class='fa fa-ship fa-2x' aria-hidden='true'></i>", iconSize: L.point(27.5, 24)})
+             }).addTo(map_b90be1dced984ce2a909db1cf994231e);
+             
+         
+         
+         tur.addEventListener("ended",function(){
+             alert("halo");
+         })
+        
+         var searchboxControl=createSearchboxControl();
+             var control = new searchboxControl({
+                 sidebarTitleText: 'Søk',
+                 sidebarMenuItems: {
+                     Items: [
+                         { type: "link", name: "Slaget ved Harsfjord", href:"templates/kart3.html" , icon: "Funn-i-Hafrsfjord-logo-final.png" },
+                         { type: "link", name: "Funn i Harfsfjord", href: "http://hafrsfjord.org/", icon: "Funn-i-Hafrsfjord-logo-final" },
+                         { type: "link", name: "Bli medlem!", href: "http://hafrsfjord.org/profile/membership-checkout/?level=1", icon: "Funn-i-Hafrsfjord-logo-final.png" },
+                         { type: "button", name: "Kjør rute", onclick: "tur.motionStart()", icon: "Funn-i-Hafrsfjord-logo-final.png" }
+        
+                     ]
+                 }
+             });
+        
+             control._searchfunctionCallBack = function (searchkeywords)
+             {
+                 
+                 for(i=0;i<markorer.length;i++) {
+                     if(searchkeywords == String(markorer[i]._myId)){
+                         mark.addTo(map_b90be1dced984ce2a909db1cf994231e);
+                         map_b90be1dced984ce2a909db1cf994231e.setView(markorer[i].getLatLng(),18);
+                         
+                     }
+                    
+                 }
+        
+        
+                 if (!searchkeywords) {
+                     searchkeywords = "Du har ikke søkt på noe"
+                 }
+                 
+             }
+        
+             map_b90be1dced984ce2a909db1cf994231e.addControl(control);
+        
+        
+         // topo4 er kartet med best zoom, og kræsjer ikkje
+        
+         var i, layer;
+         var layers = L.tileLayer.kartverket.getLayers();
+         console.log(layers);
+         var baseLayers = {};
+         for (i = 0; i < layers.length; i++) {
+             if(i != 10 && i != 4 && i!=1 && i!=5){
+                 layer = layers[i];
+                 baseLayers[layer] = L.tileLayer.kartverket(layer);
+             }
+         }
+        
+        
+        
+         var sjo="http://opencache.statkart.no/gatekeeper/gk/gk.open";
             
-</script>
+             
+         var nosjolayer = new L.TileLayer.WMS(sjo, {
+             layers: 'sjokartraster',
+             format: 'image/png',
+             attribution: '<a href="http://kartverket.no/">Kartverket</a>',
+             transparent: false
+         });
+        
+         
+        
+         var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+         maxZoom: 20,
+         subdomains:['mt0','mt1','mt2','mt3']
+         });
+        
+         var googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+         maxZoom: 20,
+         subdomains:['mt0','mt1','mt2','mt3']
+         });
+        
+         baseLayers["Sjøkart"]=nosjolayer;
+         baseLayers["Satelitt"]=googleHybrid;
+         
+         console.log(baseLayers);
+         googleHybrid.addTo(map_b90be1dced984ce2a909db1cf994231e);
+        
+        
+         L.control.layers(baseLayers,overlayRec).addTo(map_b90be1dced984ce2a909db1cf994231e);
+        
+         
+        
+         
+        
+         var videoUrls='https://www.youtube.com/watch?v=L3UjvRvGD54';
+         var bounds=[[ 32, -130], [ 13, -100]];
+        
+         var videoOverlay = L.videoOverlay(videoUrls, bounds, {
+         opacity: 0.7,
+         loop: false
+         }).addTo(map_b90be1dced984ce2a909db1cf994231e);
+        
+         var videoElement = videoOverlay.getElement();
+        
+         videoElement.addEventListener('ended', function(){
+         videoOverlay.remove();
+         });
+        
+         
+                 L.control.fullscreen({
+                     position: 'topright',
+                     title: 'Full Skjerm',
+                     titleCancel: 'Gå ut av fullskjerm',
+                     forceSeparateButton: false,
+                     }).addTo(map_b90be1dced984ce2a909db1cf994231e);
+                 map_b90be1dced984ce2a909db1cf994231e.on('enterFullscreen', function(){
+                     console.log('entered fullscreen');
+                 });
+        
+             
+         
+        
+             var tile_layer_a85a5855089e4623b2e2539e5c08b73e = L.tileLayer(
+             'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+             {
+             "attribution": null,
+             "detectRetina": false,
+             "maxNativeZoom": 18,
+             "maxZoom": 18,
+             "minZoom": 0,
+             "noWrap": false,
+             "opacity": 1,
+             "subdomains": "abc",
+             "tms": false
+        } );
+        
+        
+             // lage crosshair til minimap og koble den sammen med konvertering, visning og markering. Bør vell også ha crosshair til mainmap
+        
+             var mini_map_ac9ed6990b7a4538972515a1f1f43907 = new L.Control.MiniMap( baseLayers["Sjøkart"],
+              {
+        "autoToggleDisplay": false,
+        "centerFixed": false,
+        "collapsedHeight": 25,
+        "collapsedWidth": 25,
+        "height": 325,
+        "minimized": false,
+        "position": "bottomright",
+        "toggleDisplay": false,
+        "width": 325,
+        "zoomAnimation": true,
+        "zoomLevelFixed": null,
+        "zoomLevelOffset": -2
+        });
+             map_b90be1dced984ce2a909db1cf994231e.addControl(mini_map_ac9ed6990b7a4538972515a1f1f43907);
+        
+             
+    </script>
+
+</html>
