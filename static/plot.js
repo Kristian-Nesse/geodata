@@ -174,7 +174,7 @@ function d3get() {
     document.getElementById("3d").disabled = true;
     document.getElementById("contour").disabled = false;
 
-    var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + id
+    var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + liste + "&xstart=" + xstart + "&xslutt=" + xslutt + "&ystart=" + ystart + "&yslutt=" + yslutt
 
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -195,32 +195,48 @@ function d3get() {
 function plot3d(res) {
     var coords = []
     coords = JSON.parse(res);
-
-
-
-
-        console.log(coords)
-        console.log(coords.length)
-        var data = [{
-            z: coords["z"],
-            type: 'surface',
-            reversescale: true
-        }];
-
-    var layout = {
-        zaxis: {autorange:"reversed",range:[0,3]},
-            title: 'Kart over Hafsfjorden mellom ' + xstart + " og " + xslutt,
-            autosize: false,
-           
-            width: 1000,
-            height: 600,
-            margin: {
-                l: 65,
-                r: 50,
-                b: 65,
-                t: 90,
+    var test=[];
+    for (i = 0; coords['z'].length > i; i++) {
+        for (s = 0; coords['z'][i].length > s; s++) {
+            if (coords['z'][i][s] == null) {
             }
-        };
+            else {
+                coords['z'][i][s] = -Math.abs(coords['z'][i][s])
+            }
+        }
+    }
+
+
+
+        console.log(test)
+        console.log(coords['z'][7][2])
+    var data = [{
+        x: coords["x"],
+        y: coords["y"],
+            z: coords["z"],
+        type: 'surface',
+        contours: {
+            z: {
+                show: true,
+                usecolormap: true,
+                highlightcolor: "#42f462",
+                project: { z: true }
+            }
+        }
+        }];
+    var layout = {
+        title: 'Mt Bruno Elevation',
+        scene: { camera: { eye: { x: 1.87, y: 0.88, z: -0.64 } } },
+        autosize: false,
+        width: 800,
+        height: 800,
+        margin: {
+            l: 65,
+            r: 50,
+            b: 65,
+            t: 90,
+        }
+    };
         Plotly.newPlot('myDiv', data, layout);
    
 }

@@ -124,6 +124,7 @@ def zoom():
     jscoords['x']=[]
     jscoords['y']=[]
     jscoords['z']=[]
+    print(id)
     ruter=rutenett()
     xstart=[]
     xslutt=[]
@@ -140,7 +141,7 @@ def zoom():
         else:
             midlertidig+=id[f]
     test.append(midlertidig)
-    
+    print(test)
     for s in test:
         
         rute=ruter[float(s)]
@@ -221,53 +222,74 @@ def zoom():
 
 @app.route('/treD',methods=['GET','POST'])
 def treD():
-    start_time = time.time()
-    zoom=int(request.form.get('zoom'))
-    zoomlvl=int(int(zoom)/10)
-    nord=round(float(request.form.get('nord')),2)
-    sor=round(float(request.form.get('sor')),2)
-    ost=round(float(request.form.get('ost')),2)
-    vest=round(float(request.form.get('vest')),2)
-    id=request.form.get('id')
-    print(nord)
-    print(sor)
-    print(ost)
-    print(vest)
-
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-    mydb = myclient["Geodata"]
-    mycol = mydb["d"+str(id)+"z"+str(zoomlvl)]
-    print(zoomlvl)
-    print(zoom)
-    liste=[]
-    nyliste={}
-    nyliste['x']=[]
-    nyliste['y']=[]
-    nyliste['z']=[]
+    id=list(request.form.get('id'))
+    jscoords={}
+    jscoords['x']=[]
+    jscoords['y']=[]
+    jscoords['z']=[]
     ruter=rutenett()
-    rute=ruter[float(id)]
+    xstart=[]
+    xslutt=[]
+    ystart=[]
+    yslutt=[]
+    test=[]
+    midlertidig=""
+    for f in range(0,len(id)):
+        if id[f]==",":
+            
+            test.append(midlertidig)
+            midlertidig=""
+          
+        else:
+            midlertidig+=id[f]
+    test.append(midlertidig)
+    
+    for s in test:
+        
+        rute=ruter[float(s)]
+        xstart.append(rute[3])
+        xslutt.append(rute[2])
+        ystart.append(rute[1])
+        yslutt.append(rute[0])
+    
 
-    xstart=list(mycol.find({"x":{"$gt":rute[0]+sor,"$lt":rute[1]-nord},"y":{"$lt":rute[3]-ost,"$gt":rute[2]+vest}}).limit(1).sort([("x",pymongo.DESCENDING)]))
-    xslutt=list(mycol.find({"x":{"$gt":rute[0]+sor,"$lt":rute[1]-nord},"y":{"$lt":rute[3]-ost,"$gt":rute[2]+vest}}).limit(1).sort([("x",pymongo.ASCENDING)]))
-    ystart=list(mycol.find({"x":{"$gt":rute[0]+sor,"$lt":rute[1]-nord},"y":{"$lt":rute[3]-ost,"$gt":rute[2]+vest}}).limit(1).sort([("y",pymongo.ASCENDING)]))
-    yslutt=list(mycol.find({"x":{"$gt":rute[0]+sor,"$lt":rute[1]-nord},"y":{"$lt":rute[3]-ost,"$gt":rute[2]+vest}}).limit(1).sort([("y",pymongo.DESCENDING)]))
-    liste=list(mycol.find({"x":{"$gt":rute[0]+sor,"$lt":rute[1]-nord},"y":{"$lt":rute[3]-ost,"$gt":rute[2]+vest}}).sort([("x",pymongo.ASCENDING)]))
-
-    for i in range(len(liste)):
-        nyliste['x'].append(liste[i]['y'])
-        nyliste['y'].append(liste[i]['x'])
-        nyliste['z'].append(liste[i]['z'])
-    xmin=ystart[0]["y"]
-    xmax=yslutt[0]["y"]
-    ymin=xstart[0]["x"]
-    ymax=xslutt[0]["x"]
-    xi = np.linspace(xmin, xmax)
-    yi = np.linspace(ymin, ymax)
+        myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+        mydb = myclient["Geodata"]
+        mycol = mydb["d"+str(s)+"z0"]
+        coordinater=[]
+        coordinater=list(mycol.find().sort([("x",pymongo.ASCENDING)]))
+        for i in range(len(coordinater)):
+            jscoords['x'].append(coordinater[i]['y'])
+            jscoords['y'].append(coordinater[i]['x'])
+            jscoords['z'].append(coordinater[i]['z'])
+    print(xstart)
+    print(xslutt)
+    print(ystart)
+    print(yslutt)    
+    xmin=min(xslutt)
+    xmax=max(xstart)
+    ymin=min(yslutt)
+    ymax=max(ystart)
+    print(xmin)
+    print(xmax)
+    print(ymin)
+    print(ymax)
+    xi = np.linspace(xmin, xmax,50)
+    yi = np.linspace(ymin, ymax,50)
+    triang=tri.Triangulation(jscoords['x'],jscoords['y'])
+    interpolator=tri.LinearTriInterpolator(triang,jscoords['z'])
     X, Y = np.meshgrid(xi, yi)
-    spline = sp.interpolate.Rbf(nyliste['x'],nyliste['y'],nyliste['z'],function='thin-plate')
-    Ze = spline(X,Y)
-    Ze2=Ze.tolist()
-    return jsonify(Ze2)
+    zi=interpolator(X,Y)
+    intcoords={}
+    intcoords['x']=xi.tolist()
+    intcoords['y']=yi.tolist()
+    intcoords['z']=zi.tolist()
+    intcoords['xstart']=xmin
+    intcoords['xslutt']=xmax
+    intcoords['ystart']=ymax
+    intcoords['yslutt']=ymin
+    return jsonify(intcoords)
+   
 
 
 def rutenett():
