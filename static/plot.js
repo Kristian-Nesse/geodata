@@ -24,8 +24,7 @@ function Contour(rutenr) {
  
     console.log(rutenr['id'])
     id = rutenr['id']
-    document.getElementById("3d").disabled = false;
-    document.getElementById("contour").disabled = true;
+
 
    
     
@@ -39,6 +38,7 @@ function Contour(rutenr) {
             res = request.response;
 
             plot(res)
+            plot3d(res)
         }
     }
     request.open('POST', 'http://127.0.0.1:5000/firstzoom');
@@ -87,6 +87,17 @@ function plot(resp) {
     xslutt = coords['xslutt']
     ystart = coords['ystart']
     yslutt = coords['yslutt']
+
+    for (i = 0; coords['z'].length > i; i++) {
+        coords['x'][i] = coords['x'][i] / 1000;
+        coords['y'][i] = coords['y'][i] / 10000;
+        for (s = 0; coords['z'][i].length > s; s++) {
+            if (coords['z'][i][s] <2) {
+                coords['z'][i][s] = null
+            }
+ 
+        }
+    }
     
     //Variabelen som holder listene og instillinger for plotet
     var data = [{
@@ -171,8 +182,7 @@ function plot(resp) {
 
 function d3get() {
 
-    document.getElementById("3d").disabled = true;
-    document.getElementById("contour").disabled = false;
+
 
     var vars = "zoom=" + zoom + "&nord=" + nord + "&sor=" + sor + "&vest=" + vest + "&ost=" + ost + "&id=" + id + "&xstart=" + xstart + "&xslutt=" + xslutt + "&ystart=" + ystart + "&yslutt=" + yslutt
 
@@ -197,7 +207,12 @@ function plot3d(res) {
     coords = JSON.parse(res);
     var test=[];
     for (i = 0; coords['z'].length > i; i++) {
+        coords['x'][i] = coords['x'][i] / 1000;
+        coords['y'][i] = coords['y'][i] / 10000;
         for (s = 0; coords['z'][i].length > s; s++) {
+            if (coords['z'][i][s] < 2) {
+                coords['z'][i][s] = null
+            }
             if (coords['z'][i][s] == null) {
             }
             else {
@@ -237,7 +252,7 @@ function plot3d(res) {
             t: 90,
         }
     };
-        Plotly.newPlot('myDiv', data, layout);
+        Plotly.newPlot('myDiv1', data, layout);
    
 }
 
@@ -263,6 +278,7 @@ function plotreset() {
                 }
                 else {
                     plot(res);
+                    plot3d(res)
                 }
             }
         }
@@ -276,9 +292,12 @@ function plotzoom() {
         if (zoom == 0) {
             lvl = xslutt - xstart+5
         }
-        xzoom = xslutt- xhover
+        if (zoom > 10 && id.length > 15) {
+            return null;
+        }
+        xzoom = xslutt- xhover*1000
         console.log(lvl)
-        yzoom = ystart - yhover
+        yzoom = ystart - yhover*10000
 
         console.log(xstart)
         console.log(yslutt)
@@ -310,6 +329,7 @@ function plotzoom() {
                 }
                 else {
                     plot(res, zoomet);
+                    plot3d(res)
                 }
             }
         }
@@ -317,6 +337,7 @@ function plotzoom() {
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         request.send(vars);
         nozoom1 = 0;
+        
     }
     else {
         nozoom = 0;
@@ -350,6 +371,7 @@ function plotzoomut() {
                     }
                     else {
                         plot(res);
+                        plot3d(res)
                     }
                 }
             }
@@ -374,6 +396,7 @@ function plotzoomut() {
                     }
                     else {
                         plot(res);
+                        plot3d(res)
                     }
                 }
             }

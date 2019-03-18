@@ -11,15 +11,22 @@
         body {
             background-image: url(https://no.fjordnorway.com/imageresizer/?image=%2Fdmsimgs%2F284CC553ECB7CEB8F365A67E6E5BB8DC85362DA5.jpg&action=ProductDetailFullWidth) background-color: #cccccc;
         }
+        #myDiv {
+            position: absolute;
+            left: 50px;
+        }
+        #myDiv1 {
+            position: absolute;
+            right: 50px;
+        }
     </style>
 
 </head>
 <body onload="Contour({{id}})">
 
-
+    <div id="myDiv1" width="800" height="800"></div>
     <div id="myDiv" width="800" height="800"></div>
-    <button onclick="d3get()" id="3d">3D</button>
-    <button onclick="Contour({{id}})" id="contour" disabled>Contour</button>
+
 </body>
 
 

@@ -144,6 +144,7 @@ def zoom():
             midlertidig+=id[f]
     test.append(midlertidig)
     print(test)
+ 
     for s in test:
         
         rute=ruter[float(s)]
